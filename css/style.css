@@ -1,0 +1,81 @@
+* {margin: 0px; padding: 0px;}
+
+html {height: 100%;}
+
+body {height: 100%; font: 15px Arial, sans-serif;}
+
+a {font-size: 16px; font-weight: bold; color: #000; text-decoration: none; outline: none;}
+
+a:hover {color: #cc0000;}
+
+ul {list-style: none outside none;}
+
+div {cursor: default;}
+
+#main {width: 100%; height: 100%; text-align: center; position: relative;}
+
+#main_l, #main_c, #main_r {position: absolute;}
+
+#main_l {width: 15%; height: 100%; left: 0; top: 0;}
+
+#main_l_top, #main_l_bottom {width: 128px; height: 128px; position: absolute;}
+
+#main_l_top {left: 25%; top: 0;}
+
+#main_l_bottom {left: 25%; bottom: 0;}
+
+#main_c {width: 70%; height: 100%; left: 15%; top: 0;}
+
+#header {height: 210px;}
+
+#game_room {width: 100%; height: 68%;}
+
+#game_room_top {height: 33%; position: relative;}
+
+
+#player_7, #player_4, #player_8 {margin: auto 0; display: none; width: 128px; height: 128px; position: absolute; border: 1px solid #ccc;}
+
+#player_7 {left: 21%; top: 0; right: 0; bottom: 0;}
+
+#player_4 {left: 45%; top: 0; right: 0; bottom: 0;}
+
+#player_8 {left: 69%; top: 0; right: 0; bottom: 0;}
+
+
+#game_room_center {height: 33%; position: relative; border: 0px solid #ccc;}
+
+#player_1, #game_table, #player_2 {width: 128px; height: 128px; position: absolute; border: 1px solid #ccc;}
+
+#player_1 {display: none; margin: auto 0; left: 3%; top: 0; right: 0; bottom: 0;}
+
+#game_table {margin: auto 0; width: 256px; height: 128px; left: 40%; top: 0; right: 0; bottom: 0;}
+
+#game_start {display: inline; position: relative; left: 0; top: 54px;}
+
+#drop_list_item {display: none; padding: 3px; position: relative; left: 0; top: 54px; border: 0px solid #ccc;}
+
+#gamers_num_list {display: none; position: relative; left: 0; top: 48%; z-index: 1;}
+
+#gamers_num_list li:hover {color: red;}
+
+#player_2 {display: none; margin: auto 0; left: 86%; top: 0; right: 0; bottom: 0;}
+
+
+#game_room_bottom {height: 33%; position: relative;}
+
+#player_6, #player_3, #player_5 {display: none; margin: auto 0; width: 128px; height: 128px; position: absolute; border: 1px solid #ccc;}
+
+#player_6 {left: 21%; top: 0; right: 0; bottom: 0;}
+
+#player_3 {left: 45%; top: 0; right: 0; bottom: 0;}
+
+#player_5 {left: 69%; top: 0; right: 0; bottom: 0;}
+
+
+#main_r {width: 15%; height: 100%; left: 85%; top: 0;}
+
+#main_r_top {width: 128px; height: 128px; position: absolute; right: 25%; top: 0;}
+
+#main_r_bottom {width: 128px; height: 128px; position: absolute; right: 25%; bottom: 0;}
+
+/*position: absolute; left: 0; top: 0; right: 0; bottom: 0;  margin: 0 auto; white-space: nowrap;*/

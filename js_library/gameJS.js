@@ -50,6 +50,15 @@ var gameJS =
 	 */
 
 	game_deck: null,
+	
+	/**
+	 * Текущий ход игры
+	 *
+	 * @var array
+	 *
+	 */
+
+	game_step: 0,
 
 	/**
  	 * Начинало игры, инициализация всех параметров
@@ -82,69 +91,61 @@ var gameJS =
 
 		this.game_deck.shuffle_deck();
 
-		this.players.cards_per_player = this.game_deck.deck_length / this.player_num;
+		this.players.cards_per_player = Math.floor(this.game_deck.deck_length / this.player_num);
 
-		/* раздача карт */	// TODO дележку сделать точней
+		/* раздача карт */
 
-		var turn_by_card = 1;	// начало очереди за картой
-
-		do
-		{
-			this.players[turn_by_card]['own_cards'].push(this.game_deck.give_a_card());
-
-			if(turn_by_card === this.player_num)
-			{
-				turn_by_card = 1;
-			}
-			
-			else
-			{
-				turn_by_card++;
-			}
-		}
-
-		while(this.game_deck.current_deck.length != 0);
+		this.cardsDeal();
 
 		/* играем */
 
-		var game_step = 0;
-
-		var stack = {};	// ставки текущей партии
+		var bet_stack = {};	// ставки текущей партии
 
 		do
 		{
-			game_step++;
+			this.game_step++;
+			
+			/* принимаем ставки */
 
-			stack = {};
+			bet_stack = {};
 
 			for(var i = 1; i <= this.player_num; i++)
 			{
-				stack[i] = {};
+				bet_stack[i] = {};
 
-				stack[i]['owner'] = this.players[i]['uid'];
+				bet_stack[i].owner = this.players[i]['uid'];
 
-				var player_card = this.players[i]['own_cards'].shift();
-
-				stack[i]['card'] = [];
-
-				stack[i]['card'].push(player_card);
-				
-				// TODO осталось сравнение
-				
-				// TODO обработка войны
+				bet_stack[i].card = this.players[i]['own_cards'].shift();
 			}
 
-		}
+			/* сортируем ставки по убыванию */
 
-		while(game_step !== 1);	// TODO будущий while while(this.gameIsOver !== true);
+			var compare_arr = [];
 
-/*
-		stack.sort(function(a, b) {
+			for (var i in bet_stack) 
+			{
+				compare_arr.push(bet_stack[i]);
+			}
 
-				return a - b;
+			compare_arr.sort(function(a, b) {
+
+				return b.card - a.card;
 			});
 
-*/
+			for (var i = 0; i < compare_arr.length; i++) 
+			{
+  				alert(compare_arr[i].card);
+			}
+
+			
+
+
+			// TODO осталось сравнение, типичное простое кто наверху иерархии тот и забирает без войны
+				
+			// TODO обработка войны, найти совпадения
+		}
+
+		while(this.game_step !== 1);	// TODO будущий while(this.gameIsOver !== true);
 	},
 
 	/**
@@ -164,6 +165,59 @@ var gameJS =
 
 			this.players[i]['own_cards'] = [];
 		}
+	},
+
+	/**
+ 	 * Раздача карт
+	 * 
+	 * @return void
+	 *
+	 */
+	
+	cardsDeal: function()
+	{
+		var turn_by_card = 1;	// начало очереди за картой
+
+		do
+		{
+			this.players[turn_by_card]['own_cards'].push(this.game_deck.give_a_card());
+
+			if(turn_by_card === this.player_num)
+			{
+				turn_by_card = 1;
+			}
+
+			else
+			{
+				turn_by_card++;
+			}
+		}
+
+		while(this.game_deck.current_deck.length != 0);
+	},
+
+	/**
+ 	 * Сортирует ставки по убыванию
+	 * 
+	 * @return void
+	 *
+	 */
+
+	sortBetStackByCard: function()
+	{
+
+	},
+
+	/**
+ 	 * Проверяет, активировать ли режим войны
+	 *
+	 * @return bool
+	 *
+	 */
+
+	isItWar: function()
+	{
+		
 	},
 
 	/**

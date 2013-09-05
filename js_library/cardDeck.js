@@ -18,10 +18,10 @@ cardDeck.prototype =
 	 *
 	 */
 
-	deck_length: 54,
+	deck_length: 52,
 
 	/**
-	 * Сигнатура типичных карт
+	 * Сигнатура типичных карт, (предположим что 11, 12, 13, 14 это веса карт мастей В, Д, К, Т соответственно)
 	 *
 	 * @var array
 	 *
@@ -48,13 +48,13 @@ cardDeck.prototype =
 
 		10,10,10,10,
 
-		'В','В','В','В','В',
+		11,11,11,11,
 
-		'Д','Д','Д','Д','Д',
+		12,12,12,12,
 
-		'К','К','К','К','К',
+		13,13,13,13,
 
-		'T','T','T','T'
+		14,14,14,14
 	],
 
 	/**
@@ -90,13 +90,18 @@ cardDeck.prototype =
 	 */
 
 	shuffle_deck: function() {
-		
+
 		if(this.current_deck.length > 0)
 		{
-			this.current_deck.sort(function() {
+			var shuffle_num = Math.floor(Math.random() * (1 - 10) + 10);	// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 
-				return Math.random() - 0.5;	// вычитаем, например 0.5 чтобы область выдаваемых значений укладывалась в отрезок положительное - отрицательное число
-			});
+			for(var i = 0; i <= shuffle_num; i++)
+			{
+				this.current_deck.sort(function() {
+
+					return Math.random() - 0.5;	// вычитаем, например 0.5 чтобы область выдаваемых значений укладывалась в отрезок положительное - отрицательное число
+				});
+			}
 		}
 	},
 

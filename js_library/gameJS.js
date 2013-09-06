@@ -61,6 +61,15 @@ var gameJS =
 	game_step: 0,
 
 	/**
+	 * Ставки текущей партии
+	 *
+	 * @var object
+	 *
+	 */
+
+	bet_stack: {},
+
+	/**
  	 * Начинало игры, инициализация всех параметров
 	 *
 	 * @param integer players_number - количество игроков
@@ -99,46 +108,28 @@ var gameJS =
 
 		/* играем */
 
-		var bet_stack = {};	// ставки текущей партии
-
 		do
 		{
 			this.game_step++;
-			
+
 			/* принимаем ставки */
 
-			bet_stack = {};
+			this.bet_stack = {};
 
 			for(var i = 1; i <= this.player_num; i++)
 			{
-				bet_stack[i] = {};
+				this.bet_stack[i] = {};
 
-				bet_stack[i].owner = this.players[i]['uid'];
+				this.bet_stack[i].owner = this.players[i]['uid'];
 
-				bet_stack[i].card = this.players[i]['own_cards'].shift();
+				this.bet_stack[i].card = this.players[i]['own_cards'].shift();
+
+				this.bet_stack.length = i;
 			}
 
 			/* сортируем ставки по убыванию */
 
-			var compare_arr = [];
-
-			for (var i in bet_stack) 
-			{
-				compare_arr.push(bet_stack[i]);
-			}
-
-			compare_arr.sort(function(a, b) {
-
-				return b.card - a.card;
-			});
-
-			for (var i = 0; i < compare_arr.length; i++) 
-			{
-  				alert(compare_arr[i].card);
-			}
-
-			
-
+			this.sortBetStackByCard();
 
 			// TODO осталось сравнение, типичное простое кто наверху иерархии тот и забирает без войны
 				
@@ -205,7 +196,22 @@ var gameJS =
 
 	sortBetStackByCard: function()
 	{
+		var tmp_bubble;
 
+		for(var i = 1; i <= this.bet_stack.length - 1; i++)
+		{
+			for (var j = 1; j <= this.bet_stack.length - i; j++)
+			{
+				if(this.bet_stack[j].card > this.bet_stack[j + 1].card)
+				{
+					tmp_bubble = this.bet_stack[j];
+
+					this.bet_stack[j] = this.bet_stack[j + 1];
+
+					this.bet_stack[j + 1] = tmp_bubble;
+				}	
+			}
+		}
 	},
 
 	/**
